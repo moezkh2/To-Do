@@ -1,6 +1,6 @@
 import { Button, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux';
-import { doneTask, deleteTask} from "../Redux/ToDoSlice"
+import { doneTask, deleteTask} from "../Js/Actions/action"
 import EditeTask from './EditeTask';
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ const Task = ({ task }) => {
   const dispatch = useDispatch();
   return (
     <Card
-      bg={task.isDone}
+      bg={task.isDone? "success":"warning"}
       style={{ width: '18rem' }}
       className="task"
     >

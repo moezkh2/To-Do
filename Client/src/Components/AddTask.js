@@ -1,19 +1,28 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react";
-import { createTask } from "../Redux/ToDoSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { createTask } from "../Js/Actions/action";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { React, useEffect, useRef } from "react";
 /** component used to add a new task */
 const AddTask = () => {
-    const { task } = useSelector((state) => state);
+    const task = useSelector((state) => state);
     const [show, setShow] = useState(false);
-    const [newTask, setNewTask] = useState({description: "empty", isDone: "warning" })
+    const [newTask, setNewTask] = useState()
     const handleClose = () => setShow(false);
-    const handleAddBtn = () => { dispatch(createTask({id:(task.length+1),...newTask})); handleClose() }
+    const handleAddBtn = () => { dispatch(createTask({ id: (task.length + 1), ...newTask })); handleClose() }
     const handleShow = () => setShow(true);
-    const handleAdd = (e) => { setNewTask({ ...newTask, [e.target.name]: e.target.value }) }
+    const handleAdd = (e) => {
+        setNewTask({ ...newTask, [e.target.name]: e.target.value })
+        e.preventDefault();
+    }
     const dispatch = useDispatch();
+    const inputRef = useRef(null);
+    useEffect(() => {
+        inputRef.current?.focus();
+        setNewTask({ description: "empty", isDone: false })
+    }, [show]);
     return (
         <>
             <Button variant='warning' onClick={handleShow}>
@@ -24,10 +33,10 @@ const AddTask = () => {
                     <Modal.Title>Add a new task</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={(e) => { e.preventDefault(); handleAddBtn() }}>
                         <Form.Group className="mb-3">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control name="description" type="text" placeholder="description" onChange={handleAdd} />
+                            <Form.Control ref={inputRef} name="description" type="text" placeholder="description" onChange={handleAdd} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
