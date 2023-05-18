@@ -1,0 +1,31 @@
+{
+  "name": "todo-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "front": "cd client && npm run start",
+    "back": "nodemon server ",
+    "dev": "concurrently \"npm run back\" \"npm run front\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moezkh2/CheckPoint20_Redux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moezkh2/CheckPoint20_Redux/issues"
+  },
+  "homepage": "https://github.com/moezkh2/CheckPoint20_Redux#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "concurrently": "^6.3.0",
+    "dotenv": "^10.0.0"
+  }
+}
