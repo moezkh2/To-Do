@@ -1,11 +1,17 @@
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useState } from "react";
 import Task from "../Components/Task"
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import AddTask from "./AddTask";
 /** component used to show tasks' list */
+import React from 'react'
+
 const ListTask = () => {
-    const tasks = useSelector((state) => state);
+    // const tasks = useSelector((state) => state);
+    const [tasks, setTasks] = useState([])
+    setTasks(JSON.parse(localStorage.getItem("tasks") || "[]")) ;
+    
+    
 
     const [filter, setFilter] = useState("all")
 

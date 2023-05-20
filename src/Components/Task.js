@@ -1,13 +1,28 @@
 import { Button, Card } from 'react-bootstrap'
-import { useDispatch } from 'react-redux';
-import { doneTask, deleteTask} from "../Js/Actions/action"
+// import { useDispatch } from 'react-redux';
+// import { doneTask, deleteTask} from "../Js/Actions/action"
 import EditeTask from './EditeTask';
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardCheck,faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 /** component used to fill task card with data from the store */
+const doneTask = (task) => {
+  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  
+  let newTasks =tasks.map((el) => { return el.id === task.id ? { ...el, isDone: !el.isDone } : el })
+  localStorage.setItem("tasks", JSON.stringify(newTasks));
+}
+
+const deleteTask = (task) => {
+  let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+  
+  let newTasks =tasks.filter((el) => el.id !== task.id)
+  localStorage.setItem("tasks", JSON.stringify(newTasks));
+}
+
 const Task = ({ task }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  
   return (
     <Card
       bg={task.isDone? "success":"warning"}
@@ -17,11 +32,11 @@ const Task = ({ task }) => {
       <Card.Header style={{ display: "flex" }}>
         {`task: ${task.id}`}
         <div style={{ marginLeft: "auto" }}>
-          <Button style={{ marginRight: "3px" }} variant='outline-primary' onClick={() => {dispatch(deleteTask(task))}}>
+          <Button style={{ marginRight: "3px" }} variant='outline-primary' onClick={() => {deleteTask(task)}}>
             <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
           </Button>
           <EditeTask taskId={task.id}></EditeTask>
-          <Button style={{ marginLeft: "3px" }} variant='outline-primary' onClick={() => { dispatch(doneTask(task)) }}>
+          <Button style={{ marginLeft: "3px" }} variant='outline-primary' onClick={() => { doneTask(task) }}>
             <FontAwesomeIcon icon={faClipboardCheck}></FontAwesomeIcon>
           </Button>
         </div>
