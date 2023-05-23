@@ -6,9 +6,9 @@ const ContextProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    getTasks();
     console.log("useEffect context");
-  }, []);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const getTasks = () => {
     setTasks(JSON.parse(localStorage.getItem("tasks") || "[]"));
@@ -16,13 +16,11 @@ const ContextProvider = ({ children }) => {
 
   const addTasks = (newTask) => {
     setTasks([...tasks, { id: tasks.length + 1, ...newTask }]);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   const removeTasks = (task) => {
     let newTasks = tasks.filter((el) => el.id !== task.id);
     setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   const editeTasks = (newTask) => {
@@ -32,7 +30,6 @@ const ContextProvider = ({ children }) => {
         : el;
     });
     setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTask));
   };
 
   const doneTasks = (task) => {
@@ -40,7 +37,6 @@ const ContextProvider = ({ children }) => {
       return el.id === task.id ? { ...el, isDone: !el.isDone } : el;
     });
     setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
   };
 
   return (

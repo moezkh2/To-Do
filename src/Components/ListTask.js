@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import Task from "../Components/Task";
 import { StoregeContext } from "../Context";
 import AddTask from "./AddTask";
-/** component used to show tasks' list */
+
 import React from "react";
 
 const ListTask = () => {

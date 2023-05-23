@@ -6,7 +6,6 @@ import { StoregeContext } from "../Context";
 
 import { React, useEffect, useRef } from "react";
 
-/** component used to edite a task */
 const EditeTask = ({ taskId = "" }) => {
   const { editeTasks, tasks } = useContext(StoregeContext);
 
