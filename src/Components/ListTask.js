@@ -31,7 +31,7 @@ const ListTask = () => {
           </ToggleButton>
           <ToggleButton variant="outline-warning" value={true}>
             {" "}
-            Arogress
+            Progress
           </ToggleButton>
           <ToggleButton variant="outline-success" value={false}>
             {" "}
